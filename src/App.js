@@ -1,35 +1,22 @@
 import React from 'react';
 
 class App extends React.Component {
-  constructor() {
-    super(); // 'this' keyword gets reference to this component
-    this.state = {
-      text: 'this is the state text',
-      cat: 0
-    }
-  }
-
-  update(event) {
-    this.setState({
-      text: event.target.value
-    })
-  }
-
   render() {
-    return (
-      <div>
-        <Widget update={this.update.bind(this)}></Widget>
-        <Widget update={this.update.bind(this)}></Widget>
-        <Widget update={this.update.bind(this)}></Widget>
-        <h1>{this.state.text} - {this.state.cat}</h1>
-      </div>
-    )
+    return <Title text="props" />
   }
 }
 
-// Stateless function component
-const Widget = (props) =>
-  <input type="text"
-         onChange={props.update}/>
+const Title = (props) => <h1>Title: {props.text}</h1>;
+Title.propsTypes = {
+  text(props, propName, component) {
+    if (!(propName in props)) {
+      return new Error(`Missing ${propName}`);
+    }
+
+    if (props[propName].length >0) {
+      return new Error(`${propName} was too short`)
+    }
+  }
+};
 
 export default App;
