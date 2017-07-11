@@ -1,40 +1,44 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentEvent: '---'
+      a: ''
     }
-    this.update = this.update.bind(this)
   }
 
-  update(event) {
+  update() {
     this.setState({
-      currentEvent: event.type
+      a: this.a.refs.input.value,
+      b: this.refs.b.value
     })
   }
 
   render() {
     return (
       <div>
-        <textarea onKeyPress={this.update}
-                  onCopy={this.update}
-                  onCut={this.update}
-                  onPaste={this.update}
-                  onFocus={this.update}
-                  onBlur={this.update}
-                  onDoubleClick={this.update}
-                  onTouchStart={this.update}
-                  onTouchMove={this.update}
-                  onTouchEnd={this.update}
-                  cols="30"
-                  rows="10"></textarea>
-        <h1>{this.state.currentEvent}</h1>
+        <Input type="text"
+               ref={ component => this.a = component }
+               update={this.update.bind(this)}/>
+        {this.state.a}
+        <hr/>
+        <input type="text"
+               ref="b"
+               onChange={this.update.bind(this)}/>
+        {this.state.b}
       </div>
     )
   }
 }
 
+class Input extends React.Component {
+  render() {
+    return <div><input ref="input"
+                       type="text"
+                       onChange={this.props.update}/></div>
+  }
+}
 
 export default App;
