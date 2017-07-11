@@ -1,11 +1,23 @@
 import React from 'react';
 
-// class App extends React.Component {
-//   render() {
-//     return <h1>Hello class</h1>
-//   }
-// }
+class App extends React.Component {
+  render() {
+    let text = this.props.text;
+    return (
+      <div>
+        <h1>{text}</h1>
+      </div>
+    )
+  }
+}
 
-const App = () => <h1>Hello stateless</h1>;
+App.propTypes = {
+  text: React.PropTypes.string,
+  cat: React.PropTypes.number.isRequired
+};
+
+App.defaultProps = {
+  text: 'default text'
+};
 
 export default App;
